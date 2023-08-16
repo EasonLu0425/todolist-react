@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useAuth } from 'contexts/AuthContext';
 import styled from 'styled-components';
 
 const StyledFooter = styled.footer`
@@ -32,15 +32,16 @@ const StyledButton = styled.button`
   }
 `;
 
-const Footer = ({totalAmount, undoneAmount}) => {
-  const navigate = useNavigate()
+const Footer = ({ totalAmount, undoneAmount }) => {
+  const {logout} = useAuth()
   const handleClick = () => {
-    localStorage.removeItem('authToken')
-    navigate('/login')
-  }
+    logout()
+  };
   return (
     <StyledFooter>
-      <p>剩餘項目數： {undoneAmount} /{totalAmount}</p>
+      <p>
+        剩餘項目數： {undoneAmount} /{totalAmount}
+      </p>
       <StyledButton onClick={handleClick}>登出</StyledButton>
     </StyledFooter>
   );
